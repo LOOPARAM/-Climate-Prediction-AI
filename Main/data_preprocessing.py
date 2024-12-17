@@ -1,7 +1,9 @@
 import numpy as np
 from PIL import Image
 import os
-
+"""
+This function is for academic festival in Kyunghee High School.
+"""
 def preprocess_images(image_folder, target_size=(850, 850)):
     image_files = os.listdir(image_folder)
     images = []
@@ -19,4 +21,7 @@ def preprocess_images(image_folder, target_size=(850, 850)):
             img_cropped = img.crop((left, top, right, bottom))
             img_cropped = img.resize(target_size)
             img_array = np.array(img_cropped) / 255.0
+            images.append(img_array)
 
+    images_tensor = np.array(images)
+    return images_tensor

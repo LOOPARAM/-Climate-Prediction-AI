@@ -27,7 +27,7 @@ def preprocess_images(image_folder, target_size=(850, 850), start_i = 0, end_i =
     return images_tensor
 
 
-def split_images(image_files, p=15, r=48):
+"""def split_images(image_files, p=15, r=48):
     splited_images = []
 
     for repeats in range(r):
@@ -42,4 +42,23 @@ def split_images(image_files, p=15, r=48):
         if len(image_files) < 15:
             break
 
-    return splited_images
+    return splited_images"""
+
+def split_images(image_files, p=15, input_length=14):
+    input_images = []
+    output_images = []
+    r = len(image_files)//p if(len(image_files)%p==0) else len(image_files)//p + 1
+    for repeats in range(r):
+        # rp 배열에 p단위수로 끊어서 넣기
+        i_rp = image_files[:p][:input_length]
+        o_rp = image_files[:p][input_length:]
+        # 기존 배열에서 앞부분은 삭제하면서 당기기
+        image_files = image_files[p:]
+        # 배열에 삽입 해버렷
+        input_images.append(i_rp)
+        output_images.append(o_rp)
+        # 버렷!
+        if len(image_files) < p:
+            break
+    # 넘파이 배열로 전환 후 내보내기
+    return np.array(input_images), np.array(output_images)

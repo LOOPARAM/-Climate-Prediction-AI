@@ -27,19 +27,19 @@ def preprocess_images(image_folder, target_size=(850, 850), num_images=10):
     return images_tensor
 
 
-def split_images(image_folder, p=15, r=48):
-    print("아잉 너무 어려워요~")
-    image_files = os.path.join(image_folder)
+def split_images(image_files, p=15, r=48):
     splited_images = []
 
     for repeats in range(r):
-        print(f'{r+1}p를 생성합니다.')
+        print(f'{repeats+1}p를 생성합니다.')
         # rp 배열에 p단위수로 끊어서 넣기
         rp = image_files[:p]
-        print(rp, '---> 이야...')
+        print(rp.shape[:], '---> 이야...')
         # 기존 배열에서 앞부분은 삭제하면서 당기기
         image_files = image_files[p:]
-        print('다음 놈!:', image_files[:p])
+        print('남은 놈!:', image_files.shape[:])
         splited_images.append(rp)   # 큰 배열에 삽입하기
+        if len(image_files) < 15:
+            break
 
     return splited_images

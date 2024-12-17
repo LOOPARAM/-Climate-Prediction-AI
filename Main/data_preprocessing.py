@@ -4,11 +4,11 @@ import os
 """
 This function is for academic festival in Kyunghee High School.
 """
-def preprocess_images(image_folder, target_size=(850, 850), num_images=10):
+def preprocess_images(image_folder, target_size=(850, 850), start_i = 0, end_i = 10):
     image_files = os.listdir(image_folder)
     images = []
 
-    for image_file in image_files[:num_images]:
+    for image_file in image_files[start_i:end_i]:
         img_path = os.path.join(image_folder, image_file)
         with Image.open(img_path) as img:
             width, height = img.size

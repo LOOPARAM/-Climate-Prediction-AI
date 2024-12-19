@@ -19,7 +19,7 @@ def preprocess_images(image_folder, target_size=(850, 850), start_i = 0, end_i =
     images = []
 
     for image in img_file[start_i:end_i]:
-        img_path = os.path.join(image_folder, img_file)
+        img_path = os.path.join(image_folder, image)
         with Image.open(img_path) as img:
             width, height = img.size
 
@@ -78,10 +78,30 @@ def splitImgs_with_Nhours(image_list, h, p=12):
     return np.array(input_imgs), np.array(output_imgs)
 
 def merge_40x40(start=22, end=30):
-    merged_list = []
+    merged_list = np.zeros((0,40,40,4))
     for i in range(start, end+1):
         file_str = str(i)
-        file = np.load(f'../data/refined_data/trainData/2m/trainData_11{file_str}_40_2m')
+        file = np.load(f'../data/refined_data/trainData/2m/trainData_11{file_str}_40_2m.npy')
+        merged_list = np.concatenate((merged_list, file), axis=0)
+    print(merged_list.shape)
+
+    return merged_list
+
+def merge_40x40_(start=1, end=3):
+    merged_list = np.zeros((0,40,40,4))
+    for i in range(start, end+1):
+        file_str = "0"+str(i) if i < 10 else str(i)
+        file = np.load(f'../data/refined_data/trainData/2m/trainData_12{file_str}_40_2m.npy')
+        merged_list = np.concatenate((merged_list, file), axis=0)
+    print(merged_list.shape)
+
+    return merged_list
+
+def merge_40x40_1(start=16, end=21):
+    merged_list = np.zeros((0,40,40,4))
+    for i in range(start, end+1):
+        file_str = str(i)
+        file = np.load(f'../data/refined_data/testData/testData_11{file_str}_40_2m.npy')
         merged_list = np.concatenate((merged_list, file), axis=0)
     print(merged_list.shape)
 
